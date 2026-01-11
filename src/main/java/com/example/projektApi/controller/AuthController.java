@@ -3,6 +3,7 @@ package com.example.projektApi.controller;
 
 import com.example.projektApi.model.User;
 import com.example.projektApi.service.AuthService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

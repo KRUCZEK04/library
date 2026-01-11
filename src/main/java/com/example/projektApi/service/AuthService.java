@@ -7,6 +7,7 @@ import com.example.projektApi.model.User;
 import com.example.projektApi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,12 +26,13 @@ public class AuthService implements UserDetailsService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-    @Autowired
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder,
-                       AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    public AuthService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       @Lazy AuthenticationManager authenticationManager, // <--- DODAJ @Lazy TUTAJ
+                       JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager; // Tu może być problem z cykliczną zależnością, jeśli nie użyjesz @Lazy, ale spróbujmy prosto
+        this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
     }
 
